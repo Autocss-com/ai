@@ -278,21 +278,9 @@ Constraint Lock before coding. If it conflicts with this file, **STOP and ask.**
 
 ## 14. Routing — Which Skill Owns This Task
 
-**Skills are universal and live in this repo** (`.agents/skills/*/SKILL.md`, deep references
-in each skill's `references/*.md`). Each repo's own `AGENTS.md` may add project-specific
-routing on top. If a task touches more than one concern, do each part inside its own skill.
-
-| Task | Skill |
-|---|---|
-| Overall approach, decision model, air-gap tests | [`architecture`](./.agents/skills/architecture/SKILL.md) |
-| Page structure, regions, custom elements, forms markup | [`html`](./.agents/skills/html/SKILL.md) |
-| Layout, theme, color-scheme, state, transitions, any UI behavior | [`css`](./.agents/skills/css/SKILL.md) |
-| API call, `oninput` lifecycle, storage, startup | [`javascript`](./.agents/skills/javascript/SKILL.md) |
-| Data shape, schema, content payload | [`json`](./.agents/skills/json/SKILL.md) |
-| JSON-to-element rendering for data tables | [`data-flow`](./.agents/skills/data-flow/SKILL.md) |
-| Naming files, tags, skills | [`naming`](./.agents/skills/naming/SKILL.md) |
-| Headers, CSP, hosting, secrets | [`security`](./.agents/skills/security/SKILL.md) |
-| Manifest, service worker, install behavior | [`pwa`](./.agents/skills/pwa/SKILL.md) |
+**Skills are universal and live in this repo** (`skills/*/SKILL.md`). Each repo's own
+`AGENTS.md` may add project-specific routing on top. If a task touches more than one
+concern, do each part inside its own skill.
 
 ## 15. Architecture Tests
 
