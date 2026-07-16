@@ -189,13 +189,13 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - Fully replaces JavaScript for all UI behavior: state, visibility, themes, color-scheme, transitions, loading, navigation, forms, default and conditional layout, responsiveness, feature detection, except for the one thing HTML and CSS cannot do - data transport for CRUD operations (applied principle of Least Power).
 - Visibility controlled by data presence via `:empty`, `:not(:empty)`, `:has()` or chained combinations thereof driven by declarative logic. No `"visible": true` flags in data.
 - Light/dark via `:root { color-scheme: light dark }` and `light-dark()`. No duplicated `@media (prefers-color-scheme: dark)` blocks.
-- All CSS belongs to a `@layer` that matches their filename that matches their feature and intent. One `@layer` per CSS file. Cascade order declared once at project root. In addition to better visual context, `@layer` minimizes cascade priority. Thus additive classes, IDs and or applied styles always take precedence.
+- All CSS belongs to a `@layer` that matches their filename that matches their feature and intent. One `@layer` per CSS file. No master `@layer` order statement — a layer's priority comes from where its name first appears, i.e. the `<link>` order in `index.html` (the load order is the cascade). In addition to better visual context, `@layer` minimizes cascade priority. Thus additive classes, IDs and or applied styles always take precedence.
 - No `!important`. Ever.
 - No size-based `@media` (`min-width` / `max-width`). Always use intrinsic content based syntax such as min or max `content` width and `@container` or media query range syntax. If values are required, use `ch` (character) value type 
 - No padding or margin on any elements except for content level elements, such as `<p>`, `<h1>`, `<label>`.
 - `oklch` for project color schemes (light dark), and color themes. No `hex`, `hsl`, `rgb`.
 - Logical properties only (`margin-inline`, `padding-block`, etc.) to maintain automatic multi-national usability.
-- Required modern features: `@starting-style` for entry fade-in,  `@view-transition` for tab content, CSS anchor positioning for hover/popover content.
+- Required modern features: `@starting-style` for entry fade-in, CSS anchor positioning for hover/popover content. (`@view-transition` is **not** used — it fires only on cross-document navigations, so it is inert in this SPA; add it only if the app ever navigates between documents.)
 - Full ruleset: [`.agents/skills/css/SKILL.md`](./.agents/skills/css/SKILL.md).
 
 ## 5. JavaScript — data transport only
