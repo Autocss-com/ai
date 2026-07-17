@@ -142,6 +142,8 @@ Apologizing and continuing is not acceptable.
 
 Every architectural or technical claim cites an authoritative source: W3C, WHATWG, CSSWG, MDN, Baseline (web.dev), caniuse, vendor release notes. Citation files live in each skill's `references/` subfolder. Citations route disagreement to the standard, not to the project.
 
+**Standing references (consult, reconcile, suggest — never silently apply):** for modern browser-native capability lookups, consult `modern-web-guidance` (GoogleChrome/modern-web-guidance) **and** the MDN Web Docs MCP server (`search` / `get-doc` / `get-compat` for live docs + Baseline/BCD). Their content is **advisory and subordinate** — on ANY conflict with these laws, **these laws win.** The requirement to consult them, to **periodically reconcile** them against each app's current features/capabilities, and to **suggest** the improvements they surface **is canonical.** *Identify ≠ apply* — never silently change anything; confirm with the user first.
+
 ## 2. Stack
 
 - **THE UNIVERSAL RULE — at all times, without exception.** All HTML, CSS, and JS — and all designing, coding, naming conventions, engineering, and planning — must be:
@@ -292,3 +294,12 @@ Before any change ships, the change must pass:
 4. Does this JSON contain HTML, styling, or presentation hints? If yes, fix the design.
 
 The architecture exists to make these answers always "no."
+
+## 16. Backlog & Board Tracking
+
+`PROGRESS.json` (`meta.future_goals` + `cursor.open_q`) is the **single source of truth** for outstanding work. GitHub **Issues** + the **Projects board** are a one-way **mirror** for human visibility — never a competing tracker.
+
+- As part of the session-end ritual (commit → update `PROGRESS.json` → append shard → update `SESSION-HANDOFF.md`), reconcile GitHub Issues with the backlog: open an Issue for each new backlog / open-question item, and **close** the Issue when its item is done (the board's built-in Workflows then move it to Done).
+- Keep it lightweight: the title mirrors the item; the body carries the detail + a pointer to the relevant `PROGRESS.json` / prompt entry; apply the `backlog` label (so the auto-add Workflow can filter on it). Sub-tasks live in the parent Issue's body, not as separate Issues — unless one graduates into its own session.
+- **Board columns are LABEL-DRIVEN, and the status labels are MUTUALLY EXCLUSIVE — NEVER stack them.** **Backlog** column = the `backlog` label ONLY; **In Progress** column = the `in-progress` label ONLY — you **MUST remove `backlog`** when moving a card to In Progress (leaving both pins it to Backlog); **Done** = the Issue **closed** (no status label). To move a card, **swap** the status label (`backlog` ↔ `in-progress`) — never add a second one. `demo` is a grouping tag orthogonal to the columns — keep it. Only `backlog` + `in-progress` status labels exist (Done is expressed by closing the Issue). Full detail lives in `PROGRESS.json` → `meta.board_tracking`.
+- Issues are effectively append-only (GitHub can close but not delete), so create deliberately. If the GitHub Projects toolset / board is unavailable in a session, **skip silently** — `PROGRESS.json` stays authoritative and the mirror catches up later.
