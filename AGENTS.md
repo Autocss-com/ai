@@ -91,7 +91,7 @@ Periodically review CLAUDE.md and all docs and optimize them **for AI accessibil
 
 1. **Immediate** — the surrounding in-file code and its planning context.
 2. **Feature** — the feature-level code and its planning context.
-3. **Project** — the project-level code, planning context, purpose, intent, and direction.
+3. **Project** — the project-level code, planning context, purpose, intent, and direction. And above it, the **scaling thesis** that gives D7460N its meaning: this is **not one project's UI but every project's at once** — one presentation layer, served once, called remotely to render any back-end's data by that data's **presence and shape alone** (`:has()`, `:empty`, container/style queries, `light-dark()`), dissolving the stove-pipe that forces siloed / high-security projects to rebuild the front-end from scratch. So usability, accessibility, and standards compliance are **one shared channel inherited by every consumer**; the single dependency is the modern browser; future-proofing is existential; and air-gapped Separation of Concerns is what makes the shared UI possible. You are never touching one project — you are touching all of them at once.
 4. **Next-phase** — anticipate, note, and flag what the next session/phase needs, so its prompt can be written.
 
 Then ask, in order: **Is this already dealt with somewhere else in the codebase? Can an existing solution be reused? Can two or more existing solutions be combined?** Any question or ambiguity → **STOP and ask. Never guess. Never assume. Do exactly what is asked — no more, no less.**
