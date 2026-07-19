@@ -1,68 +1,669 @@
-# Session Handoff — D7460N (2026-03-03)
+# Session Handoff — AutoCSS docs rename + `.agents` consolidation (2026-07-19)
 
 ## Purpose
-Carry forward the exact decisions and non-negotiables from the last implementation session.
+Carry forward, in full detail, exactly what was done in this session so the next
+session knows the state without re-deriving it. This session was **documentation /
+rebrand work only** — no application behavior was changed in any repo.
 
-## Constraint Lock (must re-assert at start of next session)
-- API CRUD calls must flow through the shared `oninput` lifecycle.
-- Initial load must enter lifecycle via programmatic nav radio `.click()`.
-- API base URL is declared once; only endpoint suffix varies.
-- Shell content (`header`, `nav`, `footer`, `meta`) is fetched/injected once per runtime session.
-- No event listeners (`addEventListener`) and no `onclick` usage.
-- JS remains transport/injection + approved storage/startup wiring; CSS controls UI state.
-- Do exactly requested scope (no more, no less). Never guess.
+Repos touched live under two GitHub owners:
+- **`Autocss-com`** org: `ai`, `angular`, `react`, `vue`, `vanilla`, `autocss`
+- **`D7460N`** owner: `starter` (and `DHCP`, which was **never touched** — see below)
 
-## Architecture State (current)
-- Entry module: `assets/js/app.js`
-- Lifecycle module: `assets/js/oninput.js`
-- API transport module: `assets/js/api.js`
-- Storage module: `assets/js/storage.js`
-- Tour scaffold module: `assets/js/tour.js`
-- HTML entry script in `index.html` points to `assets/js/app.js`
+All work was done on the branch **`claude/d7460n-autocss-docs-rename-2ocenf`** in every repo.
 
-## Endpoint Model (split)
-- Base: `https://6987f917780e8375a6874dcf.mockapi.io`
-- Suffixes:
-  - `shell`
-  - `home`
-  - `about`
-  - `products`
-  - `events`
-  - `contact`
-- Nav radio index maps to page suffix in `oninput.js`.
+---
 
-## Logging Policy (implemented)
-- `console.clear()` on app startup and on each lifecycle run.
-- Minimal timestamped success reports.
-- Verbose timestamped failure reports with stage details and stack (when available).
+## The task (as given, then refined by the user)
+Original: *"Change all references to D7460N and D7460N Architecture in all AI
+documentation `.md` files in all repos in the AutoCSS org to AutoCSS and AutoCSS
+Architecture. Do not change any files other than `.md` files. Do not change history
+files. Add this task to the AutoCSS repo project board with appropriate tags."*
 
-## Data/Directory Notes
-- Runtime data comes from API endpoints (not local JSON files).
-- `assets/data` was removed as backup-only content.
+User clarifications received during the session (these are binding decisions):
+1. **Scope = the AutoCSS org only** → the 6 `Autocss-com/*` repos. (`D7460N/starter`
+   and `D7460N/DHCP` are a *different* GitHub owner and were excluded initially.)
+2. **"Don't change URLs or anything that will break functionality."** → the rename is
+   **brand-name only**. Preserve every URL, `owner/repo` path, filename, directory
+   name, code identifier, cross-repo/lineage proper-noun, storage key, etc.
+3. Later: **"Do the same in the starter repo"** → `D7460N/starter` was added to scope
+   with the identical brand-only policy.
+4. A **full-rename impact report** was requested (MCP server + *all* remaining D7460N
+   references) — **report only, no changes made**.
+5. **Copy the entire `starter/.agents` directory into `Autocss-com/ai`** (done — this
+   file lives in that copy).
+6. **Update this SESSION-HANDOFF.md** to record the session (this write).
 
-## AI Instruction Files Updated
-- `.github/instructions/d7460n-architecture.instructions.md`
-- `.github/copilot-instructions.md`
-- `CLAUDE.md`
-- `.agents/skills/d7460n-css-only/SKILL.md`
-- `.cursorrules`
+---
 
-These files were synchronized to include:
-- modular JS runtime exception,
-- shared `oninput` lifecycle rule,
-- updated file responsibilities,
-- JS runtime conventions section.
+## Rename policy actually applied (brand-only)
+**Renamed** (case-sensitive, uppercase brand): `D7460N` → `AutoCSS`, and
+`D7460N Architecture` → `AutoCSS Architecture`. Also the doc-internal compliance flag
+`(!)D7460N` → `(!)AutoCSS` (defined + used only inside `ANALYSIS.md`).
 
-## Known Gotchas (already fixed)
-- Startup bug from setting `radio.checked=true` before `.click()` (removed).
-- Shell re-fetch per nav change due to wrong hydration keying (fixed with session hydration flag).
+**Preserved deliberately** (renaming would break links or rewrite identity/history):
+- GitHub URLs: `github.com/D7460N/…`, `raw.githubusercontent.com/D7460N/starter/…`
+  (the latter is the README logo `<img>` src).
+- `owner/repo` slugs: `D7460N/starter`, `D7460N/DHCP`, `D7460N/D7460N.dev`; repo-slug
+  titles like `# CLAUDE.md — D7460N/starter`.
+- THOR-lineage proper nouns and "was formerly THOR UI" history statements.
+- Filenames / dirs: `d7460n-mcp-server/`, `d7460n-architecture.instructions.md`,
+  `d7460n-skill/`, `_archived/…d7460n-css-only`.
+- Code identifiers: `get_d7460n_rules`, `explain_d7460n_rule`,
+  `d7460n.validate_architecture`, `d7460n.fix_architecture`, the `d7460n://…` resource
+  URIs, the `"d7460n"` MCP client-config key, the storage keys `d7460n.app.v1`.
+- The tool proper-name **"D7460N MCP Server"** and the `author: D7460N` skill field.
+- Lowercase `d7460n` was left entirely untouched (it is always a path/identifier).
 
-## Next Priority Options
-1. Add shell freshness/version strategy (optional) to decide when shell rehydrate is required.
-2. Activate tour endpoint logic in `tour.js` (currently scaffold/no-op).
-3. Add explicit contract validation for shell/page payload shapes before injection.
+**Skipped as history / archive files** (left with the old name on purpose):
+- Everywhere: `SESSION-HANDOFF.md`, `.agents/skills/_archived/**`.
+- In `autocss`: `ORIGINAL-PROMPT.md`, `NEXT-SESSION-PROMPT.md`,
+  `BENEFITS-MATRIX-NEXT-SESSION-PROMPT.md`, `BENEFITS-MATRIX.md` (v1, superseded by
+  `-v2`), and the `*-BUILD-PROMPT.md` files.
+- In `vanilla`: `PROMPT.md`.
+- Non-`.md` structured log `autocss/PROGRESS.json` (out of the `.md`-only scope).
 
-## Start-of-Session Prompt Snippet
-Use this at the top of the next session:
+Verification method used on every repo: after editing, grep for remaining `D7460N`
+(must be only the preserve-list) **and** grep for `AutoCSS` in functional positions
+(`AutoCSS/`, `AutoCSS.dev`, `AutoCSS MCP Server`, `github.com/AutoCSS`, `author:`,
+`![AutoCSS]`, etc.) which must return **empty** = no mis-fires.
 
-"Read and obey `.github/instructions/d7460n-architecture.instructions.md` and `SESSION-HANDOFF.md` first. Enforce constraint lock. No guessing. No scope creep. Preserve `oninput` lifecycle invariants."
+---
+
+## Work completed — merged to `main`
+All PRs below were **squash-merged**. Branch: `claude/d7460n-autocss-docs-rename-2ocenf`.
+
+| Repo | Files changed (`.md` only) | PR | Merge SHA |
+|---|---|---|---|
+| `Autocss-com/ai` | `AGENTS.md` | #5 | `7af30b2` |
+| `Autocss-com/angular` | `CLAUDE.md` | #7 | `82559a5` |
+| `Autocss-com/react` | `CLAUDE.md` | #7 | `08b7748` |
+| `Autocss-com/vue` | `CLAUDE.md` | #7 | `3e67f22` |
+| `Autocss-com/vanilla` | `AGENTS.md` | #5 | `a05b624` |
+| `Autocss-com/autocss` | `CLAUDE.md`, `README.md`, `ANALYSIS.md`, `BENEFITS-MATRIX-v2.md` | #107 | `717a73e` |
+| `D7460N/starter` | 63 `.md` files (skills, docs, SECURITY, ANALYSIS, MCP-server docs, etc.) | #17 | `dfd6171` |
+
+**Project board:** `Autocss-com/autocss` **issue #103** (label `backlog`) created as the
+board mirror; auto-closed as **completed** via "Closes #103" in autocss PR #107; the
+`backlog` label was then cleared (board rule: Done = closed, no status label).
+
+Starter specifics: the brand-only rename correctly left the **D7460N MCP Server** name
+and all its code identifiers intact, so `d7460n-mcp-server/` docs now read e.g. "the
+D7460N MCP Server and the AutoCSS Architecture are two separate entities."
+
+---
+
+## Work completed — NOT merged (open)
+- **`Autocss-com/ai` PR #6** — copies the **entire** `starter/.agents` (58 files) into
+  `ai/.agents/`: the full `skills/**` set + `references/`, `skills/_archived/**`, and
+  `SESSION-HANDOFF.md` (this file). Branch was reset from `origin/main` first (ai PR #5
+  was already merged) and force-with-lease pushed, so the PR diff is purely the new
+  files. **Awaiting the user's merge decision.**
+  - Flagged for the user: `_archived/**` still contains `D7460N`; and this
+    `SESSION-HANDOFF.md` (now rewritten by this very commit) is what they asked to update.
+
+---
+
+## Full-rename impact report (delivered; NO changes made)
+The user asked what a *complete* `D7460N → AutoCSS` rename — including renaming the
+**D7460N MCP Server → AutoCSS MCP Server** — would touch. Summary of the report so the
+next session doesn't have to rediscover it:
+
+- **Breaking contracts (must change in lockstep with every consumer):** MCP tool names
+  `get_d7460n_rules` / `explain_d7460n_rule` / `d7460n.validate_architecture` /
+  `d7460n.fix_architecture`; the `d7460n://rules/*` resource-URI scheme; the `"d7460n"`
+  MCP client-config key; the server handshake name `"D7460N MCP Server"`; the
+  `d7460n-mcp-server/` directory + `npx tsx d7460n-mcp-server/server.ts` command; the
+  `d7460n-skill` name. All in `starter/d7460n-mcp-server/` (`server.ts` ≈40 refs,
+  `rules/*.json` 10, `docs/README.md` 14, `ai/d7460n-skill/SKILL.md` 7).
+- **Front-end (starter):** storage keys `d7460n.app.v1` in `app.js`/`oninput.js`
+  (**user-data migration**, not a text swap); `manifest.webmanifest` name/short_name;
+  `index.html` `<meta author/description>` + `<link rel=canonical href=https://d7460n.dev/>`;
+  `.cursorrules`; `docs/D7460N Architecture.drawio` (+ `__.drawio`) — filenames *and*
+  an in-diagram `<h1>`.
+- **External / real-world (cannot be fixed by editing the repo):** the `D7460N` GitHub
+  owner + repo slugs + all `github.com/D7460N/*` URLs (incl. the README logo image, which
+  404s if not redirected); the `d7460n.dev` domain; `codepen.io/D7460N/*` CSS-comment links.
+- **Identity / legal:** `LICENSE` `Copyright (c) 2026 D7460N`, `<meta author>`,
+  `author: D7460N`, manifest name.
+- **Remaining `d7460n` counts (all file types, at report time):** ai 0, angular 0,
+  react 1, vue 1, vanilla 10, autocss 71, starter 105, **DHCP 112**.
+
+**`D7460N/DHCP` was never touched** — it is D7460N-owned, out of every scope so far, and
+its own `CLAUDE.md` forbids behavioral change (docs-only if ever rebranded).
+
+---
+
+## Open decisions / next steps for the next session
+1. **Merge `Autocss-com/ai` PR #6?** (the `.agents` copy). And decide whether to drop
+   `SESSION-HANDOFF.md` and/or `_archived/**` from that copy first.
+2. **Execute the full MCP-server + all-references rename?** If yes, it needs a
+   *sequenced* plan: (a) safe text first; (b) the breaking contracts moved together with
+   their consumers; (c) the external/real-world actions (GitHub owner/repo rename +
+   redirects, a new domain — `autocss.com` already exists, CodePen). Do **not** blind
+   find/replace — the storage-key rename in particular needs a keep-old-key/migrate step.
+3. **Rebrand `D7460N/DHCP`?** (docs-only, if the user wants it in scope.)
+4. If any rename continues, **re-assert the brand-only policy** in the section above.
+
+---
+
+## Constraint lock (re-assert before any further rename work)
+- Brand-only: rename `D7460N`/`D7460N Architecture` → `AutoCSS`/`AutoCSS Architecture`;
+  never touch URLs, `owner/repo` paths, filenames, dirs, code identifiers, storage keys,
+  the `D7460N MCP Server` name, or `author:` fields.
+- `.md` files only unless the user explicitly expands scope; never change history/archived
+  files (`SESSION-HANDOFF.md`, `_archived/**`, `*-PROMPT.md`, superseded versions).
+- Always verify with the dual grep (remaining `D7460N` = preserve-list only; `AutoCSS` in
+  functional positions = empty).
+- Do exactly the requested scope — no more, no less. Never guess; stop and ask on ambiguity.
+
+## Prior content note
+This file previously held **`D7460N/starter`'s 2026-03-03 runtime handoff** (oninput
+lifecycle / endpoint / logging state for the starter app). That content is starter-app
+specific, not relevant to the canonical `ai` repo, and is preserved in git history and in
+`D7460N/starter/.agents/SESSION-HANDOFF.md` (which was intentionally not rebranded).
+
+---
+
+## Carried-over handoff entries — `Autocss-com/autocss` (build handoff, 2026-07-11)
+
+> Included at the user's request. This is the **`autocss` app build** handoff,
+> reproduced **verbatim** as a historical record — it retains the original `D7460N`
+> naming and pertains to the DHCP-parity build of the `autocss` UI, **not** to this
+> rename session. Do **not** action its build steps from here; it is reference/memory.
+> Source: `Autocss-com/autocss/SESSION-HANDOFF.md`.
+
+```text
+CONTINUE AND COMPLETE THIS BUILD. This is a fresh session; prior chat context did
+NOT carry over — everything you need is in this repo. The COMPLETE original spec is
+in `ORIGINAL-PROMPT.md`. Steps 1–6 of its Build order are DONE, verified, AND
+D7460N-compliant. A compliant rewrite of step 7 was attempted and FULLY REVERTED.
+
+>>> STRATEGY OVERRIDE (deliberate, ONE-TIME, user-confirmed) <<<
+To FINISH the app, PORT DHCP's remaining functionality AS-IS — it works — to reach
+DHCP parity with NOTHING dropped. Do NOT rewrite it to D7460N compliance during the
+port. THEN refine compliance (and add the PWA) in SEPARATE, focused future
+sessions — ONE piece per session, each with its own handoff doc. "Comply later" is
+a conscious decision for THIS BUILD ONLY — NOT a new policy. CLAUDE.md is still
+canonical; every pattern we port that violates it is tracked in the COMPLIANCE-DEBT
+LEDGER below and fixed later. PRESERVE all already-completed compliant work
+(steps 4–6) and ALL memory/handoff docs — the point is to finish across multiple
+sessions with accurate memory and zero drift.
+
+Work on a fresh branch cut from the latest `main` (never direct-push to `main` — it
+is branch-protected; promote via a PR merge). NOTE: `claude/lucid-hawking-E5Ej2` was
+PROMOTED TO MAIN on 2026-07-01 (PR #2, merge commit `90a6a8b`) — all its work now
+lives on `main`, so branch off `main`, not off the old lucid-hawking tip. Stop and ask
+on ANY doubt. Check in before your FIRST push and after each numbered step. Do NOT
+drop any DHCP functionality. Do NOT add any feature DHCP does NOT have (e.g. the
+unsaved-changes guard — that's a future feature session, see backlog).
+
+============================= READ FIRST, IN THIS ORDER =============================
+1. `CLAUDE.md` — canonical, non-negotiable D7460N architecture rules (still the
+   target; the port-as-is below is an explicit, logged, one-time exception).
+2. `ORIGINAL-PROMPT.md` — the full original plan/spec (goal, KEEP-&-MODERNIZE
+   heuristic, HTML/scope reality, D7460N compliance, JS authoring conventions,
+   cadence, memory standard, build order). NOTE: its "port capabilities, not code;
+   rewrite to compliance as you port" is SUPERSEDED for this build by the strategy
+   override above (logged 2026-06-07). The historical prompt is left unchanged.
+3. `PROGRESS.json` — read the `meta` and the `cursor` (phase/last/next/open_q).
+4. `progress/log-001.ndjson` — the append-only memory shard. READ IT IN FULL.
+   Pay special attention to every record dated 2026-06-07 (the step-7 handoff;
+   the revert; the carried-forward decisions; VERIFIED dhcp facts; the dispatchEvent
+   decision; the state-persistence principle; the JSON-sourced-content correction;
+   the port-as-is strategy decision) and lines 35–37 (step-7 requirements, the
+   popover/undo finding, the forms line-by-line inventory).
+5. `starter/.agents/SESSION-HANDOFF.md` — the prior Constraint Lock (re-assert it).
+6. `ANALYSIS.md` — the dhcp→starter file reconciliation and per-file verdicts.
+7. Standing modern-web references (advisory) — `modern-web-guidance` (GoogleChrome plugin) + MDN Web Docs MCP (`https://mcp.mdn.mozilla.net/`, tools search/get-doc/get-compat); usage + periodic-review policy are canonical in CLAUDE.md Rule 33.
+
+Reference repos in scope: `DHCP` (messy-but-complete working prototype = the
+FEATURE + LOOK reference, and now the literal SOURCE we port from) and `starter`
+(the D7460N-correct but incomplete architecture reference). `autocss` (this repo)
+= the completion. End state: look/behave/work like DHCP now; become fully D7460N
+through the later refinement sessions.
+
+============================= GROUND TRUTH / CURRENT STATE =========================
+- RESPONSE INTEGRITY CHARTER (2026-07-11): the governing charter (§0-§9) is the
+  prepended, SINGLE-SOURCE-OF-TRUTH section of `CLAUDE.md`. It is FINALIZED and merged
+  to `main` in all four writable in-scope repos (autocss #65; react/vue/angular #6 each).
+  It governs EVERY response on every project: §0 always-in-force + never-shortcut +
+  minimize-verbiage; §1 never-guess/assume + VERIFY-AND-CITE (a claim of verification is
+  not proof); §3 delivered codebases count as 'confirmed correct'; §5 caveman brevity +
+  NO virtue-signaling; §8 hold three contexts (immediate/overall/next-phase); §9 periodic
+  cost-driven doc maintenance (whitelist-over-blacklist, without dropping detail). PENDING:
+  D7460N/starter + D7460N/dhcp are 403 write-blocked (apply after the user grants the
+  GitHub App write access). See PROGRESS.json cursor.phase + shard 2026-07-11.
+- CONTENT BRANCH (2026-07-02, NEW user-authorized feature beyond the port; design =
+  autocss PR #53): `inject.injectContentBlocks` renders an ordered `content` array of
+  `{tag:text}` blocks as real semantic elements into `<article><section>` — reuse-first
+  then clone from an inert `<template>` pool (allow-list), idempotent across nav (surplus
+  emptied+kept; CSS `:empty` hides). Text-only, no `id`, no `innerHTML`. INERT on the live
+  DHCP app (no `content` field). Browser-verified (scratchpad/verify-content.mjs, 6/6).
+- Branch `claude/lucid-hawking-E5Ej2`. (NOTE: a fresh container may check out
+  `claude/great-ride-37t354` = EMPTY scaffolding; that is a harness default — switch
+  to lucid-hawking, where ALL work + memory live. User-confirmed 2026-06-10.)
+- *** STEPS 7 + 8 DONE + VERIFIED (2026-06-10) = DHCP PARITY REACHED. *** Step 7
+  ported DHCP CRUD AS-IS. NEW files: `assets/js/forms.js`, `assets/js/utils.js`,
+  `assets/css/forms.css`, `assets/css/fallbacks.css`, `assets/css/loading.css`.
+  MODIFIED: `inject.js` (added createInputFromKey/mirrorToSelectedRow/
+  injectRowField/injectRowValues/updateHeaderRow + two-input row-toggle w/
+  radio.dispatchEvent as-is + 1-line fieldset-clear in injectPageContent),
+  `oninput.js` (RULES_CACHE + getFieldRules), `app.js` (import './forms.js'),
+  `index.html` (3 <link>s). Step 8 exercised ALL 12 endpoints via REAL triggers
+  (37/37: each loads w/ JSON-sourced title, DOM rows === API items, row-click
+  renders one field per column; settings empty -> fallback, no form; zero errors).
+  Regression green: node 7/7, test7 15/15, test7b 6/6. As-is bugs ported + tracked
+  in the LEDGER below. See NDJSON 2026-06-10 records.
+  NEXT = FUTURE SESSIONS backlog (compliance + PWA), each its OWN session+handoff.
+- DONE + verified + COMPLIANT: steps 1–6 (DO NOT replace these with DHCP versions).
+  - Step 4 = transport/lifecycle (`config.js`, `env.js`, `api.js` incl. write
+    methods, `storage.js`, `oninput.js`).
+  - Step 5 = data shaping (`schema.js`, `rules.js`) with node tests (7/7).
+  - Step 6 = generation/`inject.js`: nav is STATIC HTML (text injected, not
+    generated); the ONLY generated DOM is data-table cells = custom elements from
+    the JSON item KEYS via `toTagName()` with the JSON VALUES injected. EVERYTHING
+    rendered into the page is SOURCED FROM THE JSON — the `<h1>` title, the intro
+    `<p>`, the column-header labels, the table rows, and (in step 7) the per-record
+    form fields. NOTHING is hardcoded. The SPECIFIC values (header keys, row count)
+    come from the live JSON and CHANGE with the data — do NOT treat them as
+    invariants. The only code-level invariant is the `toTagName()` transform.
+  - NO nav radio is `checked` in the HTML by default. On load the runtime reads the
+    persisted endpoint from browser storage (`storage.js`) and SELECTS it, else the
+    FIRST nav radio: `input.checked = true` then `input.dispatchEvent(new
+    Event('input', { bubbles: true }))` so the radio's OWN `oninput` fires the
+    lifecycle. The script never calls the lifecycle itself; never `.click()`. This
+    storage-restore is the STARTER convention, not DHCP (DHCP has no storage and
+    defaults to the first page). `dispatchEvent` here is the SINGLE sanctioned
+    exception (the one programmatic selection with no real user event).
+- Step 7 (a COMPLIANT rewrite) was implemented (commits 21bdf93, 2abd648) then
+  FULLY REVERTED via `git reset --hard 31c7925` + force-push (it improvised features
+  and falsely claimed things were tested). We are now porting AS-IS instead.
+- Files that DO NOT currently exist: `assets/js/forms.js`, `assets/js/format.js`,
+  `assets/css/forms.css`, `assets/css/fallbacks.css`.
+- `assets/js/inject.js` `createListItem` currently builds a row with ONLY the
+  `list-item` radio (the `row-toggle` checkbox is NOT there yet).
+- Data source = a shared live mockapi (one API base, endpoint suffix varies).
+  Save/Delete write to it — treat writes with care (throwaway record / ask).
+
+============================= CADENCE / HARD RULES (STILL APPLY) ==================
+- File-by-file. Stop and ask on ANY doubt. Check in before the FIRST push and after
+  each numbered step. Commit + update `PROGRESS.json` cursor + the NDJSON shard
+  after each step (append-only; never edit past records).
+1. TEST ONLY VIA THE REAL TRIGGER. Exercise the actual user path (simulate the click
+   on the row/label/button so the real `oninput`/`onchange` fires). NEVER call
+   handler functions directly and call that "tested." NEVER say something is tested,
+   wired, or working unless the real path actually ran and you observed the result.
+2. NEVER ASSERT BEHAVIOR FROM READING CODE — observe it in a real browser.
+3. NEVER ADD CODE, FILES, OR FEATURES NOT REQUESTED. Porting as-is means MATCH DHCP;
+   do not "improve," redesign, or invent (the reverted attempt invented a broken
+   unsaved-changes overlay — do not).
+4. MATCH DHCP EXACTLY during the port. If DHCP looks buggy (e.g. the id lookup,
+   fact 2), PORT THE BUG AS-IS and log it in the ledger; do not silently fix.
+5. Test environment recipe (this env kills backgrounded servers): run the static
+   file server AND the Playwright chromium test in ONE foreground node process
+   (`createServer.listen(127.0.0.1:PORT)` → `chromium.launch` → `goto` → assert/
+   screenshot → `server.close()`), `ignoreHTTPSErrors: true` (egress MITM cert).
+   Node tests: GLOB form `node --test 'tests/*.test.mjs'`.
+
+============================= DO-NOT-REPEAT (the reverted attempt's mistakes) =====
+- The unsaved-changes OVERLAY was IMPROVISED (not in DHCP) and BROKEN: `html:not(
+  :hover) app-container:has(aside form fieldset:not(:empty))::after`. `html:not(
+  :hover)` is TRUE whenever the pointer is not over page CONTENT (scrollbar, browser
+  chrome, another window, before mouse enters), so it showed "every time the form is
+  open." NEVER use `html:not(:hover)` for mouse-leave. Do not re-add it.
+- Falsely claimed "all wired"/"tested end-to-end" while the real selection path did
+  not exist (the test synthesized `radio.checked=true; radio.oninput()`).
+- Assumed the form fade from reading `transitions.css` (it does not fade).
+- Skipped reading the session handoff at start.
+
+============================= STEP 7 — PORT DHCP'S CRUD FORMS AS-IS ===============
+Bring DHCP's working CRUD over AS-IS (keep its patterns: `.onchange`, `data-dirty/
+valid`, `innerHTML`, `radio.dispatchEvent`, console debug, the `label > id`
+lookup). Adapt ONLY what's needed to wire DHCP's code into autocss's EXISTING
+compliant modules (different names/contracts). Goal = DHCP parity, nothing dropped.
+- Port DHCP `assets/js/forms.js` → autocss `assets/js/forms.js` AS-IS. Adapt
+  imports: DHCP `postJSON/putJSON/deleteJSON` → autocss `api.js`
+  `postJson/putJson/deleteJson` (NOTE error contract differs, fact 7 — autocss
+  returns null/false instead of throwing; DHCP's try/catch will simply not catch,
+  which is fine for now, log it); DHCP `loadPageContent` → autocss
+  `runOnInputLifecycle`; DHCP `getFieldRules` → autocss `getFieldRules` (add it,
+  below); DHCP `denormalizeRecord` → autocss `schema.js`; DHCP inject fns → autocss
+  `inject.js`.
+- Port DHCP's form-related `inject.js` functions AS-IS into autocss `inject.js`:
+  `createInputFromKey`, `mirrorToSelectedRow`, `injectRowField`, `injectRowValues`,
+  `updateHeaderRow`; AND restore the TWO-input row in `createListItem` — the
+  `row-toggle` checkbox + `handleRowToggle` WITH DHCP's `radio.dispatchEvent(new
+  Event('input'))` AS-IS (the row-toggle→radio dispatch; fixing this to a direct
+  call is a ledger item). Per Open-Q4/fact: the form's field SET + labels follow
+  the table COLUMNS — keys+values read from the SELECTED ROW's cells, types/options
+  from `getFieldRules()` (inferred over the data). Port this exactly; revisit later.
+- Port DHCP's form helpers AS-IS (DHCP `utils.js`: `snapshotForm`,
+  `hasUnsavedChanges`, `restoreFormFields`, `isFormValid`, `formatDateForInput`,
+  `removeInlineStyles`, `clearFieldset`). Keep the `utils` shape for now; splitting
+  into concern-named modules is a ledger item.
+- Bring DHCP `loaders.js` RULES_CACHE/`getFieldRules` over (compute
+  `inferFieldRules(items)` per endpoint, cached) and wire it into autocss's
+  lifecycle so the form generator can type its inputs.
+- Port DHCP CSS AS-IS: `assets/css/forms.css`, `fallbacks.css`, `loading.css`;
+  `<link>` them in `index.html`. (Token/oklch reconcile + de-`data-*` = ledger.)
+- Wire `forms.js` into the app so its handlers register (DOM is ready: script at end
+  of `<body>`). The `<aside>` markup already exists (`<form><fieldset></fieldset>
+  <p aria-live="polite"></p>` + Close/Delete/Reset/Save role=button labels with
+  checkboxes; `<h2 aria-live="polite">DETAILS</h2>`).
+GOAL/verify (REAL trigger, chromium-over-http): click a row → form loads; edit →
+mirrors to the row; New/Save/Reset/Delete/Close all behave like DHCP. Save/Delete
+hit the shared mockapi — use a throwaway record or ask. Run regression on steps 1–6.
+
+============================= STEP 8 — DATASETS + REGRESSION (after parity) =======
+Exercise ALL 12 nav endpoints (manage, faqs, api-registration, audit, option-set,
+option-types, scope-type, server-types, servers, credentials, variables, settings):
+confirm each loads + its form renders like DHCP; full behavioral + regression pass
+(node tests + chromium). This completes DHCP PARITY.
+
+============================= FUTURE SESSIONS — each its OWN session + handoff =====
+Do these AFTER parity, ONE focused piece per session. Each session: read
+`PROGRESS.json` + the newest shard + this handoff; do the ONE piece; test via the
+REAL trigger; update the memory shard + this handoff; commit. This keeps accurate
+cross-session memory and avoids drift.
+1. *** SAVE/DELETE DATA-MODEL FIX (recommended FIRST — it's the only functional
+   gap; everything else is render/compliance) *** — Save writes to the wrong level
+   (creates a stray top-level resource instead of editing `record[0].items`) and
+   Delete never hits the server. Full diagnosis + the two fix options (A: PUT
+   `record[0]` with the item spliced in + fix id selector to `label > id-`; B:
+   per-item backend routes) are in the LEDGER below and in the NDJSON 2026-06-10
+   `SAVE/DELETE DATA-MODEL DEFECT` lesson. Endpoint-agnostic (fix in `forms.js` +
+   a read accessor in `oninput.js` fixes all 12). Own session. Also: finish the
+   shared-mockapi cleanup (residue still on faqs/option-set/audit/servers/manage).
+2. PWA — add `sw.js` (precache + offline SPA fallback, asset list = autocss's real
+   files) and confirm/repair `manifest.webmanifest`. (ANALYSIS §4 / Q4.) Own session.
+3. Forms D7460N compliance — work the COMPLIANCE-DEBT LEDGER below; likely several
+   focused sessions (triggers; dirty/valid→CSS; innerHTML→replaceChildren;
+   row-toggle dispatch→direct; id-lookup; error display; spinner; naming/utils split).
+4. Unsaved-changes GUARD — a NEW feature (Popover API, "not a modal but the other
+   thing"), DHCP has NONE. Own session. Do NOT add during the port.
+5. State-persistence generalization (decision D) — own session.
+6. MODULAR COLOR SYSTEM — the color-scheme open_q is RESOLVED (2026-06-14, user-
+   confirmed) in favor of Rule 19 `:root{color-scheme: light dark}` (system/OS-follow
+   DEFAULT). Rebuild the color/theme concern as a drop-in, copy/paste-able system in
+   PARTS, each its OWN session: Part 1 = `color-scheme.css` (light/dark governor + all
+   four media-prefs [prefers-color-scheme, forced-colors, prefers-contrast, prefers-
+   reduced-transparency] + a semantic fg/bg variable contract defaulting to CSS system
+   colors + a 3-state Light/Dark/System radio replacing the header ☼ checkbox, with
+   persistence/restore wired into the EXISTING oninput init/storage); Part 2 =
+   `color-theme-*.css` (palette derived from a single hex in the FILE NAME); Part 3 =
+   the HTML controls/hue-picker. This SPLITS today's `themes.css` (mechanism+toggle →
+   `color-scheme.css`; the OKLCH palette → `color-theme-default.css`). The ready-to-
+   paste Part-1 build prompt is `COLOR-SCHEME-BUILD-PROMPT.md` (preliminary draft —
+   refine before building). Full design = NDJSON 2026-06-14 decision.
+   >>> PART-1 STATUS (claude/lucid-hawking-E5Ej2):
+   ROUND 1 (2026-06-15) — authored the standalone governor FILE
+   `assets/css/color-scheme.css`: `@layer color-scheme,color-theme`;
+   `:root{color-scheme:light dark}` (Rule 19); DOM-AGNOSTIC 3-state Light/Dark/System
+   ABSOLUTE override via pure `:root:has(input[name="scheme"][value=...]:checked)`
+   (System falls through = OS-follow); semantic fg/bg/`--outline` contract defaulting
+   to documented CSS system colors; foundation (bg/fg/accent-color/links/::selection/
+   active-scheme tint); all 4 media-prefs. Control UI = ICON+TEXT+ARIA (glyphs in
+   markup); `:has()` rules keyed off the unique `name="scheme"` (no wrapper dep).
+   ROUND 2 (2026-06-15) — WIRED IT INTO THE APP (user-approved COHERENT swap, no broken
+   toggle): index.html meta `dark light`->`light dark`; linked color-scheme.css early
+   (after fonts.css, before themes.css); replaced the header ☼ checkbox with the
+   3-radio Light/Dark/System group (name=scheme, value=light|dark|system, input
+   aria-hidden, aria-label per label, System `checked`; glyphs ☼/☾/◐); REMOVED from
+   themes.css the `:root{color-scheme:dark}` + the `:has(header label:last-of-type
+   input:checked){color-scheme:light}` toggle (mechanism now lives in color-scheme.css;
+   themes.css = palette only). Parity kept WITHIN each scheme (palette is
+   light-dark()-only, NO prefers-color-scheme media query anywhere — grep-confirmed —
+   so tokens track the governor's color-scheme); the DEFAULT intentionally becomes
+   system-follow (Rule 19). layout.css:32 `header label:nth-of-type(1)` still targets
+   the separate hidden Layouts toggle (label #1) — unaffected.
+   ROUND 3 (2026-06-15) — wired the JS selection persistence + on-load restore into the
+   EXISTING oninput.js init/storage (no new system, no new init fn), mirroring the nav
+   quartet: bindSchemeOnInput() [each `input[name=scheme]`.oninput -> persistColorScheme;
+   NO lifecycle call, NO dispatchEvent], restoreColorScheme() [light/dark -> radio.checked
+   = true, NO dispatch since `:has(:checked)` reacts directly; absent/"system" -> do
+   nothing, System stays HTML-checked, CSS follows OS], getInitialColorScheme() [reads
+   state.colorScheme], persistColorScheme() [writes a `colorScheme` key BESIDE
+   `navigation`/`environment` in the one autocss.app.v1 state via read/writePersistent].
+   Wired into initializeOnInputLifecycle() after the nav bind/trigger. JS sets ONLY
+   `.checked`, never styles; idempotent/stateless; `node --check` (ESM) passes.
+   ROUND 4 (2026-06-15) — BUGFIX (user-reported: scheme choice not saving cross-session,
+   real device on autocss.com). ROOT CAUSE, reproduced + fixed in a REAL browser
+   (Playwright + chromium headless, colorScheme:dark, local serve of branch HEAD):
+   bindSchemeOnInput()+restoreColorScheme() ran AFTER `await hydrateShell()`, so when the
+   data hydrate fails/stalls (API down/slow/cert/timeout) the whole post-await block was
+   skipped -> radios never bound, restore never ran; the CSS color flip still worked
+   (pure `:has(:checked)`, zero JS) so it LOOKED fine but never persisted. FIX: moved both
+   to run FIRST, synchronously, BEFORE the await (color is pure UI, must not depend on the
+   data API; scheme radios are static markup at parse time -> safe up front; also cuts
+   FOUC). NOT an external-service workaround — decouples a UI toggle from data transport,
+   which the architecture already mandates. VERIFIED both API-DOWN (Light now persists +
+   restores despite hydrateShell throwing) and API-UP (5/5: Light saves+restores, System
+   round-trips to OS-follow, no permanent override). Nav binding stays gated behind
+   hydrateShell (unchanged; nav needs the data). Color-scheme persistence is now
+   BROWSER-VERIFIED.
+   ROUND 5 (2026-06-15) — SIMPLIFY per user (Least Power, LESS complexity, NO session
+   tracking). DELETED hydrateShell() + the isShellHydrated module flag + the "Shell
+   hydrated" log; the banner/nav-label/version injection is now INLINED as plain
+   sequential calls inside the SINGLE on-page-load function initializeOnInputLifecycle()
+   (runs ONCE from app.js — nothing re-calls it, and per-page DATA loads through the nav
+   radio's own oninput, not here, so no once-per-session guard is needed). Nav-label /
+   banner / version TEXT injection is unchanged (just text into the existing HTML, as
+   before). RENAMED scheme -> color-scheme EVERYWHERE: index.html `name="color-scheme"`
+   (x3); color-scheme.css `:root:has(input[name="color-scheme"][value=...]:checked)` +
+   `label:has(> input[name="color-scheme"]:checked)` + comments; oninput.js
+   bindSchemeOnInput -> bindColorSchemeOnInput (+ selector) and restoreColorScheme's
+   selector. Storage key stays camelCase `colorScheme` (consistent with sibling
+   navigation/environment/updatedAt). On-load order: color-scheme bind+restore FIRST
+   (pure CSS, no data), THEN inject API text, THEN nav bind + triggerInitialSelection.
+   BROWSER-VERIFIED (Playwright/chromium, OS=dark): API-DOWN -> color-scheme still
+   persists/restores/round-trips; API-UP -> nav labels inject (Manage / Frequently Asked
+   Questions / API Registration / Audit), nav 'manage' checked, H1 'Manage', 10 rows
+   (data path intact) + color-scheme 5/5. NOTE: round-2/3/4 entries above are HISTORY —
+   the names `scheme` / `hydrateShell` they reference no longer exist (now `color-scheme`
+   / inlined). FUTURE (user, track): nav items will later be BUILT from JSON key/value
+   pairs (like the table cells via toTagName), replacing the static nav skeleton; for now
+   only text is inserted into existing nav items.
+   ROUND 6 (2026-06-16) — standalone fallback test + color-scheme.css extension. TEST
+   STATE (still active in index.html): themes.css AND transitions.css <link>s are
+   commented out (temporary) to view color-scheme.css alone — body Canvas/CanvasText
+   flip correctly light<->dark; panels go bare (consumer bridge not built). Per user,
+   EXTENDED color-scheme.css: added `--bg-selected` + `--bg-hover` (both
+   `rgb(from AccentColor r g b / 5%)` = 5% accent); `--fg-link` now `var(--fg-accent)`
+   (links = accent); generalized the old color-scheme-only active indicator into a
+   DOM-AGNOSTIC selected/hover treatment for state-machine labels
+   (`label:has(> input:is([type=checkbox],[type=radio]):checked|...:hover)`) using the
+   new tokens + accent text; reduced-transparency collapses the tints to
+   Highlight/ButtonFace. BROWSER-VERIFIED: the SELECTED color-scheme control shows a 5%
+   accent pill + accent text in light AND dark. KNOWN LIMIT: nav/row SELECTED don't show
+   the tint in the themes-OFF test because layout.css (UNLAYERED) `var(--bg-active)`
+   (undefined -> transparent) overrides the layered color-scheme.css rule -> the CONSUMER
+   BRIDGE is the fix (now tracked in PROGRESS.future_goals). Also backlogged: REBUILD
+   transitions.css as ONE self-contained drop-in system (it fades things at different
+   times + some twice — not one independent system).
+   CANONICAL ARCHITECTURE (user-restated 2026-06-16; full text in PROGRESS.meta.color_system):
+   Phase 1 color-scheme.css = standalone, 3 jobs — (1) rename UA/system defaults into
+   intuitive --fg/--bg vars, setting NO literal color values (system-color defaults only);
+   (2) be the FALLBACK when no color-theme file is present; (3) define the variable names a
+   theme overrides. Phase 2 color-theme-??????.css = filename is the 6-hex base color
+   (brevity), contents are OKLCH variable OVERRIDES derived from that ONE color, and it
+   overrides PURELY by being linked AFTER color-scheme.css in <head> (natural cascade — NOT
+   @layer, NOT a 'bridge'). First theme = dhcp blue (= today's themes.css). CORRECTION: my
+   earlier "@layer / consumer-bridge / alias" framing was wrong + over-complex; the real
+   remaining work is a MIGRATION of consumers to the contract names + converting themes.css
+   into color-theme-<bluehex>.css. ALSO TO REVERT: my round-6 edit wrongly added a generic
+   painter `label:has(>input:checked){background:var(--bg-selected)}` INTO color-scheme.css
+   (overreach: that file establishes the contract + minimal foundation, it must NOT paint
+   app component states; it also lost to layout.css's unlayered --bg-active). Keep the
+   --bg-selected/--bg-hover TOKENS + links=accent; selected/hover belong in CONSUMER rules.
+   STILL TO DO in Part 1 (DEFERRED per user): (b) the COLOR-SYSTEM MIGRATION above
+   (consumers -> contract names; themes.css -> color-theme-<bluehex>.css); (c) the FOCUS-INDICATOR
+   paint — only the accent-hued `--outline` COLOR token exists; the
+   `label:has(>input:focus-visible)` paint, OPTION A (transformable pseudo/anchor layer
+   + forced-colors outline fallback) vs OPTION B (CSS outline on label) primitive, and
+   making the state-machine `<input>`s visually-hidden-but-keyboard-FOCUSABLE (today
+   `display:none`+`aria-hidden`) incl. SCOPE (scheme control vs global nav) — a later
+   step (pick A/B with the Part-2/effects research); (d) BROWSER VERIFICATION (chromium
+   media-emulation + the standalone CodePen test). NOT yet browser-verified. See the
+   in-file DEFERRED footer block + the NDJSON 2026-06-15 feature records. <<<
+
+============================= D7460N COMPLIANCE-DEBT LEDGER (fix in future sessions)
+What we KNOWINGLY port as-is / defer, plus the decisions already taken this session
+for HOW to fix each later:
+- Form triggers: DHCP `.onchange` ×5 → `.oninput` (check → act → uncheck self).
+- Dirty/valid: DHCP `form.dataset.dirty/valid` + `updateButtonStates` → pure CSS.
+  DECISION (B): "no dirty state / record-open proxy" (aside visibility =
+  `fieldset:not(:empty)`; Save gated `aside form:has(:invalid)`); tension noted
+  (can't detect true "changed"; Reset keeps record open). Revisit when doing this.
+- Undo/Reset: DECISION (A) = native per-input undo + Reset → `restoreForm` (restore
+  fields + mirrored row); NO custom history stack, NO Ctrl+Z/X JS.
+- `innerHTML` (`clearFieldset`, `headerLi.innerHTML=''`) → `replaceChildren`.
+- Row-toggle: DHCP `radio.dispatchEvent(new Event('input'))` → DIRECT
+  `rowSelectHandler()` call (the toggle's own real `oninput` already fires).
+  NOTE: `dispatchEvent` is sanctioned ONLY for the single initial-load nav selection
+  (CLAUDE.md "JS Runtime Conventions"); the row-toggle should NOT use it.
+- *** SAVE/DELETE DATA-MODEL DEFECT (its OWN future session; HIGH-VALUE) *** —
+  full root-cause analysis in progress/log-001.ndjson 2026-06-10 (type=lesson,
+  topic "SAVE/DELETE DATA-MODEL DEFECT"). SUMMARY: Save SUCCEEDS (HTTP 200) but
+  writes to the WRONG LEVEL — it creates a NEW top-level resource in the mockapi
+  COLLECTION instead of adding to the rows the app shows. THREE compounding causes:
+    (1) READ/WRITE MODEL MISMATCH (fundamental): read is NESTED —
+        `oninput.js:96-98` takes `data[0]` and renders `record[0].items[]`; write
+        is FLAT — `forms.js:216` `postJson('manage', payload)` → `POST {base}/manage`
+        (`api.js:33-40`) creates `collection[n]`, a sibling of `[0]`, NEVER inside
+        `[0].items`. No code path writes into `record[0].items`; the flat mockapi
+        resource has no nested `/manage/:recordId/items` route.
+    (2) id-lookup bug (= FACT #2): `forms.js:202` & `:258` use `querySelector(
+        'label > id')` but the real cell is `<id->` (toTagName adds a trailing
+        hyphen). `<id>` never matches → `id` always undefined → Save's `putJson`
+        branch is DEAD (always POSTs/creates), and Delete's `deleteJson` branch is
+        DEAD (DOM-remove only, never deletes server-side).
+    (3) `denormalizeRecord` maps {name,type}→{itemName,itemType} so item field
+        names land at the resource level; mockapi adds faker {name,avatar,createdAt}
+        → stray shape {id,name,avatar,createdAt,itemName,itemType}.
+  AFFECTS ALL 12 ENDPOINTS (all use the `[0].items` read model). FIX = pick ONE
+  consistent model: OPTION A (keep API) = fix the two id selectors to `label > id-`,
+  carry `record[0]`'s real top-level id through the read layer (small shared
+  accessor in `oninput.js`, NOT global state), and make Save/Delete splice the item
+  into `record[0].items` then `PUT {endpoint}/{record0.id}` the whole resource;
+  OPTION B (cleaner) = restructure backend so each item is its own resource with
+  real per-item routes and point read+write at the same level. Must stay D7460N
+  (oninput-only, no data-*, CSS state, idempotent, one base) + verify via the REAL
+  trigger with a throwaway record that is cleaned up. CLEANUP STATUS: deleted only
+  `manage`'s 16 Save-shaped strays (28→12, 200 each); residue REMAINS on faqs(+7),
+  option-set(+3), audit(+1), servers(+1) and manage(+11 seed-ish) — a future
+  cleanup must audit every endpoint + review borderline records MANUALLY (faker
+  `name` collides with the data `name` field, so automated classification is
+  unreliable). Original Q2 (keep-faithful vs fix) is RESOLVED → FIX in this session.
+- Error display: DHCP writes the main article intro `<p>` (fact 8) — decide vs the
+  form's `aria-live <p>` (was Q5).
+- Loading spinner: reconcile DHCP `:checked`-driven dual-ring vs autocss's single
+  `:root:has(article h1:empty)::before` — keep ONE (was Q6).
+- `createInputFromKey` QUIRK: new-item EMPTY fields get `required=false`
+  (unvalidated) — faithful to DHCP; revisit.
+- `rules.js`: dead `number`-type branch (values are stringified) — faithful to DHCP.
+- Naming: DHCP `utils.js` → split into concern-named modules (NO `utils`/`helpers`).
+- CSS: forms.css token/oklch reconcile, de-`data-*` gating, fix DHCP css bugs
+  (malformed `rgba(var(--error-color).05)`, self-ref `--valid-border-color`,
+  `.error` class); fallbacks.css drop the obsolete `nav details section:empty`.
+- State persistence (decision D): every state-machine input SAVES its boolean to
+  storage on its own `oninput`; auto-RESTORE is NAV-ONLY for now; generalize later
+  (which inputs + storage shape still open). `oninput` is independent/decoupled;
+  there is NO orchestrated load/restore order.
+- color-scheme: RESOLVED 2026-06-14 → Rule 19 `light dark` (system-follow DEFAULT,
+  not forced dark). Now a MODULAR COLOR SYSTEM build series (see FUTURE SESSIONS #6 +
+  `COLOR-SCHEME-BUILD-PROMPT.md` + NDJSON 2026-06-14).
+- Principles to preserve through refinement: all page content is JSON-sourced (no
+  hardcoding); `:checked` is the single source of truth for CSS state + the data
+  call; `humanize()` derives header/label text identically.
+
+============================= DECISIONS ALREADY MADE (for the refinement sessions) =
+(A) UNDO/REDO = native per-input browser undo + Reset → `restoreForm`. No history
+    stack, no Ctrl+Z/X JS.
+(B) DIRTY SIGNAL = "pure CSS, record-open proxy." No dirty state, no `data-dirty`;
+    aside visibility = `fieldset:not(:empty)`; Save gated `:has(:invalid)`. Reset
+    (restores values, record stays open) does NOT close the aside — only Save
+    (reload repopulates) or Close (clears fieldset) closes it.
+(C) Save gating = `aside form:has(:invalid)` (validity only). Reset/Delete/Close
+    available whenever a record is open.
+(D) STATE PERSISTENCE — GENERAL PRINCIPLE. State always changes through USER input,
+    sole exception (so far) = first load (the sanctioned `dispatchEvent` nav
+    selection); `oninput` is independent and decoupled. INTENT: EVERY state-machine
+    `<input>` (radio OR checkbox) SAVES its boolean state to storage on its own
+    `oninput`, so those booleans can be controlled/manipulated "when we need them
+    later." BUT do NOT auto-RESTORE them on load — NOT yet. The ONLY state restored
+    from history on load is the NAV radio. Generalizing the SAVE (durable inputs)
+    is a future task; auto-restore of others stays OFF. Momentary ACTION triggers
+    (Save/Reset/Delete/Close/New, check→act→uncheck) have no meaningful resting
+    state; the meaningful saved states are the DURABLE toggles/selections.
+
+============================= VERIFIED DHCP REFERENCE FACTS (do NOT re-derive) ====
+(These tell you exactly what the as-is port will do and what each compliance fix
+targets.)
+1. `toTagName(key)` is the JSON-key→custom-element-tag transform (camel/underscore
+   → hyphen; a single-word key gets a TRAILING hyphen, so `id` → `id-`). Header
+   cells and row cells ARE these tags, derived from whatever KEYS the JSON items
+   have — the tag SET is DATA-SOURCED, not fixed (the `manage` data currently yields
+   `id- name- created- updated- author- modified- type-`, but that follows the JSON).
+   The invariant is the transform; `toTagName('id')='id-'` matters for fact 2.
+2. dhcp `forms.js` looks up the row id via `querySelector('label > id')` (looks for
+   `<id>`), which NEVER matches the real `<id->` cell → id is always undefined →
+   dhcp SAVE ALWAYS POSTs (never PUT); dhcp DELETE-by-id never fires (only the no-id
+   DOM-remove branch works). dhcp's ACTUAL behavior (a latent bug). Port as-is; fix
+   later (ledger).
+3. dhcp has NO unsaved overlay / popover / `<dialog>` / mouse-leave / beforeunload
+   anywhere (grep-verified). The guard is a NEW feature; only vestiges exist
+   (`utils.unsavedCheck` defined-never-called, `config.CONFIRM_FLAGS` unused,
+   `OPTIONS.warnOnBlur` unused).
+4. dhcp FORM-LABEL text === COLUMN-HEADER text === `humanize(key)` =
+   `toTagName(key).replace(/^item-/,'').replace(/-/g,' ').titleCase`. Header built
+   in `injectPageContent`; form labels in the row→form builder as `humanize(key)+': '`.
+   New-item rebuilds the header via `updateHeaderRow(li)`. autocss `humanize()` is
+   byte-identical. The form's field SET follows the table COLUMNS; keys+values come
+   from the SELECTED ROW's cells, types/options from `getFieldRules()`
+   (`inferFieldRules` over the data). Port as-is; revisit the coupling later.
+5. dhcp `createListItem` = TWO hidden inputs per row sharing one `<label>`: FIRST a
+   checkbox `name="row-toggle"` (`oninput = handleRowToggle`) — the label's click
+   target; a checkbox UNTOGGLES on re-click = lets a second click DESELECT the row;
+   SECOND a radio `name="list-item"` (single-selection + `:checked` styling + the
+   form-load query). `handleRowToggle`: if now checked, uncheck all OTHER
+   `row-toggle` checkboxes; set `radio.checked = checkbox.checked`; then dhcp does
+   `radio.dispatchEvent(new Event('input'))` to fire the radio's oninput. PORT THIS
+   AS-IS (the dispatch); the compliance fix (→ direct `rowSelectHandler()` call) is
+   a ledger item. Re-clicking the selected row → checkbox unchecks → `radio.checked=
+   false` → handler finds no `:checked` row → fieldset cleared → aside closes via
+   `fieldset:not(:empty)`.
+6. dhcp triggers New/Save/Reset/Delete/Close via `<checkbox>.onchange` ×5. Port
+   as-is; → `.oninput` is a ledger item.
+7. API ERROR CONTRACT DIFFERS. dhcp `fetch.js` `putJSON`/`postJSON` THROW on failure
+   (try/catch). autocss `api.js` `writeData` RETURNS `null` on failure (no throw),
+   `parseJson(response)` on success; `deleteJson` returns `true`/`false`. When you
+   wire DHCP forms.js to autocss api.js, DHCP's try/catch simply won't catch (calls
+   resolve to null/false) — acceptable for the port; note for the compliance pass.
+   CAUTION: a successful write with empty/unparseable body → `parseJson` null →
+   could read as failure.
+8. dhcp error display: sets the main article intro `<p>`.textContent to "⚠️ Error
+   saving/deleting record." + `console.error`.
+9. dhcp Delete of a NEW (no-id) item also clears the header row
+   (`headerUl.querySelector('li').innerHTML=''`).
+10. dhcp `createInputFromKey` typing: select (required, blank "Select..." option +
+    options, selected match) / toggle (checkbox checked if "true") / textarea
+    (required if value) / datetime (readOnly, tabIndex -1) / default text with
+    read-only heuristics: `key==='id'` OR 36-char uuid → readOnly + aria-disabled;
+    ISO-Z date → datetime-local readOnly; key matches author|modified|created|
+    updated → readOnly text; else text, `required = (val !== '')`, `pattern='.+'`.
+    QUIRK: new-item EMPTY fields get `required=false` (unvalidated).
+
+============================= REMAINING CROSS-CUTTING =============================
+- Confirm the API base = the DHCP mockapi is the intended data source (steps 4–6
+  already use it and work, so effectively confirmed; flag if you change endpoints).
+- "Form elements appear DELAYED" was a user report during the REVERTED rewrite — it
+  is NOT a fade. After the as-is port, observe whether it reproduces; if DHCP does
+  not have it, the port won't. Do not chase it speculatively.
+
+============================= DEFAULTS ==========================================
+- Branch: cut a fresh branch from the latest `main`. `claude/lucid-hawking-E5Ej2` was
+  merged to `main` 2026-07-01 (PR #2, `90a6a8b`); never direct-push to protected `main`
+  (promote via PR merge).
+- Memory: `PROGRESS.json` (read first) + `progress/log-001.ndjson` (append-only).
+- Assets carried from the `starter` base.
+```
