@@ -8,32 +8,33 @@ metadata:
 
 # Architecture
 
-The browser is the framework and IDE. The web platform — HTML, CSS, JavaScript — is mature enough on its own to do everything frameworks do, and to do it better, because it is not burdened by the layers frameworks add. Every concern is air-gapped from every other concern. There is exactly one way to do each thing, which removes guessing, mistakes, and rework.
+The browser is the SDLC single source of truth, framework, and IDE. The web platform — HTML, CSS, JavaScript — is mature enough on its own to do everything frameworks do, and to do it better, because it is not burdened by the layers of complexity, over engineering, forced "happy paths", and vendor-lock that frameworks and libraries add. Every concern is separation of concerns air-gapped and independent from every other concern. There is exactly one way to do each thing, which minimizes guessing, mistakes, and rework, while remaining compatible/interoperable with all framewors and libraries. 
 
 ## Philosophy
 
 This architecture assumes the **best** of developers, not the worst.
 
-Frameworks pander to the lowest common denominator. They assume the developer cannot be trusted to write clean HTML, will reach for `<div>` everywhere, will mix concerns, will not study the platform. They wrap the platform in abstractions that hide it, then teach the developer the abstraction instead of the platform. The result is a wall of unknowable complexity — "mystery meat" — that produces tech debt by default and entrenches weakness while simultaneously over-engineering everything.
+Frameworks control code through complexity and abstraction. They assume developers cannot be trusted to write clean efficient HTML, will reach for `<div>` everywhere, will couple together and mix concerns, will not study the platform. They wrap the platform in abstractions that hide it, then teach developers the abstraction instead of the platform. The result is a wall of unknowable complexity — "mystery meat" — that produces tech debt, a long O&M tail by default, and entrenches weakness while simultaneously over-engineering virtually everything to artificially raise cognitive barriers of entry.
 
-This architecture goes the other way. It assumes the developer is studious, diligent, and cares about craft. It trusts established standards — HTML, CSS, JavaScript — done well. It controls slop by demanding excellence, not by surrendering to it. The architecture is harder to follow than picking up a framework. That hardness is the point: it is what produces clean output, predictable behavior, and a system any qualified person can read end-to-end.
+**AutoCSS Architecture** goes the other way. It respects and meets developers where they are as studious, diligent, hard workers that care for and respects their craft. It **establishes standards** — HTML, CSS, JavaScript — done well — **as the default**. The **AutoCSS Architecture** is easier and faster to pick up than a framework because it is **simple by design**. That simplicity is the point: it is what _lowers cognitive barriers of entry_ and produces clean output, predictable (intuitive) behavior, and a system any qualified developer can easily and intuitively read end-to-end. Usability is not just for end-users, but for developers as well. 
 
-The architecture does not bend. When a design hits a dead end, the design is wrong — re-engineer until the platform's standard tools express it cleanly. Custom elements, classes, IDs, data-attributes, framework escape hatches: none of these are tools for papering over weak design. The fix is the design.
+The AutoCSS Architecture is authoritative in that it is what you get when you combine the best of both modern W3C/WCAG/508 compliance standards and modern UI/UX/A11Y best practices and techniques. As the AI, you must ensure that coding practices and designs that fall outside of these standards and best practices and techniques must be re-engineered until the AutoCSS Architecture standard is met and or exceeded. As part of the air-gapped separation of concerns, to "bake-in" semantic markup, and to stay out of the way of frameworks, libraries, or other additional word, classes, IDs, data-attributes, `div`s, and `span`s are strictly forbidden for AI use. Proper design shall be preferred over complexity or abstraction. The fix is the design.
 
-A few practical consequences:
+A few practical notes:
 
-- HTML is **div-less and span-less.** If a semantic element does not fit the intent's main meaning, the design is flawed — go to the parent and re-engineer. (See the `html` skill.)
-- CSS is **the UI runtime**, not styling. It owns layout, state, transitions, themes, visibility, loading. Anything that can be expressed in CSS is expressed in CSS. (See the `css` skill.)
-- JavaScript is **data transport only**, on a single `oninput` lifecycle. No event listeners, no UI logic, no DOM manipulation for presentation. (See the `javascript` skill.)
+- HTML is **div-less and span-less.** If a semantic element does not fit the intent's main meaning, the design must be rejected — go to the parent and re-engineer. (See the `html` skill.)
+- CSS is **the UI runtime**, not just styling. It must replace all JS equivalents. CSS owns everything in the presentation layer except the API CRUD data transport. This includes layout, state, transitions, themes, visibility, loading, etc. Anything that can be expressed in CSS is expressed in CSS. (See the `css` skill.)
+- JavaScript is **API CRUD data transport only**, on a single `oninput` lifecycle. No event listeners, no click events, no UI logic, no DOM manipulation for presentation. (See the `javascript` skill.)
 - JSON is **data only.** No markup, no styling, no flags. Data presence drives UI; absence hides it. (See the `json` skill.)
 
 ## End-user customization is a feature, not an edge case
 
-Users — especially those who work with the same surface every day — earn the right to see their data their way. The architecture treats this as a primary design goal:
+Users — especially those who work with the same surface every day — earn the right to see their data their way. The AutoCSS Architecture treats this as a primary design goal:
 
-- Data tables are rendered as `<ul>` / `<li>` (see the `data-flow` skill) so CSS can present them as list view, card view, or other views without rebuilding the DOM.
+- Data tables are rendered as `<ul>` / `<li>` (see the `data-flow` skill) so oure CSS (no JavaScript) can present them as list view, card view, or other views without rebuilding the DOM.
 - A consistent **zen-mode (full-screen)** affordance is planned across the architecture so users can promote the section they're working in to a full viewport, not a modal overlay.
-- Theme follows system preference by default, with optional user override (see `css/references/themes.md`).
+- Color-scheme follows system preference by default, with optional user override (see `css/references/themes.md`).
+- Color-themes are selectable via the (as yet to be built) native HTML color-theme color-picker.
 - All UI state is in the DOM, which means the user's choices persist naturally with storage utilities, not with framework state managers.
 
 This is the inverse of the framework approach. Frameworks ship one rendering and harden it. The AutoCSS architecture ships the data and lets CSS reshape it on the user's terms.
