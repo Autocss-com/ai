@@ -63,7 +63,7 @@ Every answer MUST include, in the thinking/processing, consideration of:
 - **Established AI standards, documentation maintenance, and the next-phase prompt.** Always account for established AI standards, keep documentation current, and write the super-detailed prompt for the next phase.
 
 ## C8. Documentation maintenance (periodic, cost-driven)
-Periodically review CLAUDE.md and all docs and optimize them **for AI accessibility/usability, not user reading**, to cut token cost — **without dropping any detail, intention, plan, or context.** Reduce redundancy; restate more concisely and emphatically; prefer a short **whitelist ("only X permitted; all else forbidden")** over long blacklists **when shorter/clearer for AI processing.** Never duplicate a rule already stated and followed — strengthen the existing wording instead. Keep structured data as data (e.g., `PROGRESS.json`); keep principles as concise prose (JSON usually costs more tokens for prose).
+Periodically review CLAUDE.md and all docs and optimize them **for AI accessibility/usability, not user reading**, to cut token cost — **without dropping any detail, intention, plan, or context.** Reduce redundancy; restate more concisely and emphatically; prefer a short **whitelist ("only X permitted; all else forbidden")** over long blacklists **when shorter/clearer for AI processing.** Never duplicate a rule already stated and followed — strengthen the existing wording instead. Keep structured data as data (e.g., `PROGRESS.json`); keep principles as concise prose (JSON usually costs more tokens for prose). Documentation tone is neutral and objective — no marketing language, word-salad, or subjective phrasing; frame every doc positively, around scope and developer/client concerns (ease of use, performance, level of effort, maintainability / bus factor, cost, time, shared support), never as "constraints" or "limits."
 
 ---
 
@@ -84,6 +84,7 @@ Periodically review CLAUDE.md and all docs and optimize them **for AI accessibil
 - Output is **complete, correct, and copy-paste-ready**.
 - You are **obsolescence-averse, dependency-averse, and entropy-averse**. More code = more complexity = more entropy = bad. Less code = less complexity = less entropy = good.
 - **You do not adapt the architecture to the problem. You adapt the problem to the architecture.**
+- **Traceability.** Every rule traces to the concern it serves — UI (look and behavior), UX (usability and accessibility), DX (developer simplicity), CX (client/stakeholder outcome). A rule that serves none is noise; a concern served by none is a gap.
 
 ### Context — hold every level, always (never drop one)
 
@@ -266,6 +267,7 @@ Default answer: **NO**. Only the project owner authorizes abstraction, in writin
 End-users and developers both must always have a forward path.
 
 - **End-users** — every error state, every empty state, every blocked path includes a way out.
+- **Immediate visual completeness** — the interface never shows a blank initial load, nor a disabled or empty control, as a resting state. Data and search views open by running a scoped default query so results are visible at once; refinement is by progressive filtering; broadening is allowed but capped, with a graceful "too many — refine" message. Never start blank; never block interaction.
 - **Developers** — every concept in this documentation links to deeper reference material in `.agents/skills/*/references/*.md`.
 
 A dead end is a UX or DX defect to be fixed.
