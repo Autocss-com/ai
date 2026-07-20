@@ -1,20 +1,19 @@
 ---
 name: css
-description: CSS rules for projects following the air-gapped, declarative-first architecture. CSS is the UI runtime — it owns layout, state, themes, transitions, visibility, loading, and every other UI behavior. Each CSS feature lives in its own reference file, independently usable. Use whenever writing or reviewing styles, or whenever the task is "make X visible / behave / transition / theme."
+description: Modern vanilla CSS is the **native, intrinsic superpower** driving the AutoCSS Architecture—built in, always active, continuously observing, and instantly reactive. In an air-gapped _Separation of Concerns_ (presentation layer from data layer), declarative-first system, CSS is not simply a styling layer. **CSS is the UI runtime.** It controls layout, state, themes, transitions, visibility, loading, responsiveness, interaction, and every other form of interface behavior. Each CSS capability is isolated in its own reference file: independent, reusable, composable, and free from JavaScript or any other control. CSS **must** be leveraged to it's maximum potential for writing or reviewing presentation layer UI conditional layout behavior,styles, and/or everything else in the presentation layer aside from API CRUD data transport.
 license: MIT
-metadata:
-  version: "1.0.0"
+metadata: version: "1.0.0"
 ---
 
 # CSS
 
-CSS is the UI runtime, not styling. CSS replaces all front-end JavaScript except data delivery.
+CSS is the UI runtime, not just styling. CSS replaces all front-end JavaScript except data delivery.
 
 ## CSS owns
 
-Every visible UI behavior. Layout, theme, color-scheme, visibility, transitions, loading indicators, navigation appearance, form validation display, scrollbar styling, animations, focus indication.
+Every visible UI behavior. Layout, theme, color-scheme, visibility, transitions, loading indicators, navigation appearance, form validation display, scrollbar styling, animations, focus indication. CSS owns everything in the presentation layer except API CRUD data transport.
 
-JavaScript is forbidden for any of these. If a behavior can be expressed in CSS, CSS expresses it. The single permitted JavaScript responsibility is data transport — see the `javascript` skill.
+JavaScript is strictly forbidden for anything in the presentation latyer except for API CRUD data transport. All presentation layer behavior MUST be expressed in CSS, CSS expresses it. The single permitted JavaScript responsibility is data transport — see the `javascript` skill.
 
 ## Universal CSS rules
 
