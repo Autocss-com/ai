@@ -1,4 +1,4 @@
-# CLAUDE.md AutoCSS Architecture 
+# CLAUDE.md
 
 Claude-specific entry point. It holds **no rules of its own** — by design.
 
