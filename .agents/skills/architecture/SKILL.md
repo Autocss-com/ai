@@ -12,13 +12,13 @@ The browser is the SDLC single source of truth, framework, and IDE. The web plat
 
 ## Philosophy
 
-This architecture assumes the **best** of developers, not the worst.
+The AutoCSS Architecture respects developers as professionals, not try to control them through complexity and abstraction.
 
 Frameworks control code through complexity and abstraction. They assume developers cannot be trusted to write clean efficient HTML, will reach for `<div>` everywhere, will couple together and mix concerns, will not study the platform. They wrap the platform in abstractions that hide it, then teach developers the abstraction instead of the platform. The result is a wall of unknowable complexity — "mystery meat" — that produces tech debt, a long O&M tail by default, and entrenches weakness while simultaneously over-engineering virtually everything to artificially raise cognitive barriers of entry.
 
 **AutoCSS Architecture** goes the other way. It respects and meets developers where they are as studious, diligent, hard workers that care for and respects their craft. It **establishes standards** — HTML, CSS, JavaScript — done well — **as the default**. The **AutoCSS Architecture** is easier and faster to pick up than a framework because it is **simple by design**. That simplicity is the point: it is what _lowers cognitive barriers of entry_ and produces clean output, predictable (intuitive) behavior, and a system any qualified developer can easily and intuitively read end-to-end. Usability is not just for end-users, but for developers as well. 
 
-The AutoCSS Architecture is authoritative in that it is what you get when you combine the best of both modern W3C/WCAG/508 compliance standards and modern UI/UX/A11Y best practices and techniques. As the AI, you must ensure that coding practices and designs that fall outside of these standards and best practices and techniques must be re-engineered until the AutoCSS Architecture standard is met and or exceeded. As part of the air-gapped separation of concerns, to "bake-in" semantic markup, and to stay out of the way of frameworks, libraries, or other additional word, classes, IDs, data-attributes, `div`s, and `span`s are strictly forbidden for AI use. Proper design shall be preferred over complexity or abstraction. The fix is the design.
+The **AutoCSS Architecture** is _authoritative_ in that it is what you get when you combine the best of both modern **W3C/WCAG/508 compliance standards** and **modern UI/UX/A11Y best practices and techniques**. As the AI, you must ensure that coding practices and designs that fall outside of these standards and best practices and techniques must be re-engineered until the AutoCSS Architecture standard is met and or exceeded. As part of the air-gapped separation of concerns, to "bake-in" semantic markup by default, and to stay out of the way of frameworks, libraries, or other additional word, classes, IDs, data-attributes, `div`s, and `span`s are _strictly forbidden_ for AI use. Proper design shall always be preferred over complexity or abstraction. The fix is the better design.
 
 A few practical notes:
 
@@ -29,19 +29,19 @@ A few practical notes:
 
 ## End-user customization is a feature, not an edge case
 
-Users — especially those who work with the same surface every day — earn the right to see their data their way. The AutoCSS Architecture treats this as a primary design goal:
+Users — especially those who work with the same surface every day — earn the right to see their data their way. The **AutoCSS Architecture** treats this as a primary design goal:
 
-- Data tables are rendered as `<ul>` / `<li>` (see the `data-flow` skill) so oure CSS (no JavaScript) can present them as list view, card view, or other views without rebuilding the DOM.
+- Data tables are rendered as `<ul>` / `<li>` (see the `data-flow` skill) so CSS (never JavaScript) can present them as list view, card view, or other views without rebuilding the DOM.
 - A consistent **zen-mode (full-screen)** affordance is planned across the architecture so users can promote the section they're working in to a full viewport, not a modal overlay.
-- Color-scheme follows system preference by default, with optional user override (see `css/references/themes.md`).
+- Color-scheme follows system preference by default, with optional user override (see `css/references/themes.md`). [Color-scheme and color-themes have been split into two different documents sothis needs to be updated.]
 - Color-themes are selectable via the (as yet to be built) native HTML color-theme color-picker.
 - All UI state is in the DOM, which means the user's choices persist naturally with storage utilities, not with framework state managers.
 
-This is the inverse of the framework approach. Frameworks ship one rendering and harden it. The AutoCSS architecture ships the data and lets CSS reshape it on the user's terms.
+This is the inverse of the framework approach. Frameworks ship one rendering and harden it. The **AutoCSS Architecture** ships the data and lets CSS reshape it on the user's terms.
 
-## Air-gap principle
+## Air-gapped Separation of Concerns principle
 
-Each concern is independent. A change in one concern produces no change in any other.
+Each concern is air-gapped and completely independent. A change in one concern produces no change in any other. Each concern correlates to a CSS or JS file. Each file must be able to be copy/pasted into a Codepen for independent inspection and testing and should work as designed without any other CSS or JS file.
 
 | Concern | Owns | Knows nothing about |
 |---|---|---|
