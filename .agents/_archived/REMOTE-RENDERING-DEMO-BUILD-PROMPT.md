@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 # BUILD PROMPT — AutoCSS Remote-Rendering Demo Phase (4 demos — 1 vanilla + 3 frameworks)
 
 > **NEXT-SESSION HANDOFF. Written 2026-07-01 on branch `claude/autocss-remote-rendering-demo-kueqca`.**

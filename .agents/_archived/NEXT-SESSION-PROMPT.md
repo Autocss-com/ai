@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 # NEXT SESSION PROMPT — SAVE/DELETE DATA-MODEL FIX
 
 This is the COMPLETION PROMPT for the next focused session. Paste it as the task.

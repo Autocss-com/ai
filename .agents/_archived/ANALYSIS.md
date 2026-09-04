@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 # ANALYSIS.md -- DHCP -> starter file reconciliation
 
 > **Purpose.** Decide, per DHCP source file, what `starter` still needs.

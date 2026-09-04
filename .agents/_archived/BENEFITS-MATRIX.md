@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 # D7460N benefits by experience — UX · DX · CX · MX
 
 Find your column. The D7460N Architecture serves four experience domains; open the one that is yours to see what you get, how it works, and where it is already proven.

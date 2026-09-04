@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 # TASK: Continue the D7460N "Benefits Matrix" + research the THOR precursor lineage
 
 You are continuing prior work. You have NO memory of the earlier session; everything you

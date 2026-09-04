@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 # BUILD PROMPT — `color-scheme.css` (modular color system, Part 1 of 2)
 
 > PRELIMINARY DRAFT — working copy of the reusable build prompt, subject to further

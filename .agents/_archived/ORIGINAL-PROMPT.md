@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 EXECUTE THIS PLAN. It is the complete spec from prior planning (that context did
 not carry into this fresh session). Access is now resolved: all three repos
 (starter, DHCP, autocss) are in scope and you have push access to autocss. Begin

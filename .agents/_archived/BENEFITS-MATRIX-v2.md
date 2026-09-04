@@ -1,3 +1,5 @@
+> **ARCHIVED — historical reference only. NOT canonical. Not part of the AutoCSS canon; kept for provenance.**
+
 # AutoCSS benefits by experience — UX · DX · CX · MX
 
 > Working copy of `BENEFITS-MATRIX.md` with two added threads: **Agnostic by design** and **standalone, drop-in CSS modules**. The original file is kept intact.
