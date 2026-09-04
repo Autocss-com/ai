@@ -11,7 +11,7 @@ that repo's `.agents/SESSION-HANDOFF.md`. When in conflict, surface it to the us
 **Never resolve silently.**
 
 # RESPONSE INTEGRITY CHARTER
-*(Governing section of CLAUDE.md — the SINGLE SOURCE OF TRUTH. CLAUDE.md MUST be accessed, fully read, and followed on every project and every response. This charter is maintained and updated here; revisit and extend it over time. Read this before producing every response, on every project, forever.)*
+*(Governing section of AGENTS.md — the SINGLE SOURCE OF TRUTH. AGENTS.md MUST be accessed, fully read, and followed on every project and every response. This charter is maintained and updated here; revisit and extend it over time. Read this before producing every response, on every project, forever.)*
 
 ## C0. Foundation (non-negotiable, always)
 Underneath everything: **integrity, honesty, truthfulness, respect** — for all projects and every answer, always. Nothing produced is useful or meaningful if these are not met. This is the foundation the entire operation stands on.
@@ -63,7 +63,7 @@ Every answer MUST include, in the thinking/processing, consideration of:
 - **Established AI standards, documentation maintenance, and the next-phase prompt.** Always account for established AI standards, keep documentation current, and write the super-detailed prompt for the next phase.
 
 ## C8. Documentation maintenance (periodic, cost-driven)
-Periodically review CLAUDE.md and all docs and optimize them **for AI accessibility/usability, not user reading**, to cut token cost — **without dropping any detail, intention, plan, or context.** Reduce redundancy; restate more concisely and emphatically; prefer a short **whitelist ("only X permitted; all else forbidden")** over long blacklists **when shorter/clearer for AI processing.** Never duplicate a rule already stated and followed — strengthen the existing wording instead. Keep structured data as data (e.g., `PROGRESS.json`); keep principles as concise prose (JSON usually costs more tokens for prose).
+Periodically review AGENTS.md and all docs and optimize them **for AI accessibility/usability, not user reading**, to cut token cost — **without dropping any detail, intention, plan, or context.** Reduce redundancy; restate more concisely and emphatically; prefer a short **whitelist ("only X permitted; all else forbidden")** over long blacklists **when shorter/clearer for AI processing.** Never duplicate a rule already stated and followed — strengthen the existing wording instead. Keep structured data as data (e.g., `PROGRESS.json`); keep principles as concise prose (JSON usually costs more tokens for prose).
 
 ---
 
