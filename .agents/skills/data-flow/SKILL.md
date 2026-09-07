@@ -145,4 +145,5 @@ _Checked against MDN as of 2026-07-16._
 - `references/lifecycle.md` — fetch → parse → render sequence in detail
 - `references/schema.md` — schema file format and where it lives
 - `references/positional-mapping.md` — page-level field-to-element table
+- `references/pool.md` — pool-materialization (Mechanism A) vs data-table cells (Mechanism B), the `<template>` allow-list + silent-drop guard, serving the pool from the host (App Shell), and the golden-baseline regression gate
 - Custom elements spec: https://html.spec.whatwg.org/multipage/custom-elements.html
