@@ -1,6 +1,9 @@
 # ai
 AutoCSS/AI prompts/instructions
 
+> **No longer maintained.** The canonical AI laws and skills for all AutoCSS work live in
+> [D7460N-ai/D7460N.ai](https://github.com/D7460N-ai/D7460N.ai).
+
 ```
 
                                            _____    Brrrr..tk
