@@ -179,7 +179,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - No HTML in JSON. Ever.
 - Custom elements: only two categories permitted — the closed `app-*` set (`app-container`, `app-logo`, `app-user`, `app-legal`, `app-version`, `app-banner`), or data-table (`<ul><li>`) row elements generated from JSON keys via `toTagName()`, injected with paired `value`. Anything outside these is forbidden.
 - Always use `<meta name="color-scheme" content="light dark">` to minimizing flash of unstyled content (FOUC).
-- Full ruleset: [`.agents/skills/html/SKILL.md`](./.agents/skills/html/SKILL.md).
+- Full ruleset: [`.agents/skills/html/SKILL.md`](https://github.com/D7460N-ai/D7460N.ai/blob/main/.agents/skills/html/SKILL.md).
 
 ## 4. CSS — the UI runtime
 
@@ -196,14 +196,14 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - `oklch` for project color schemes (light dark), and color themes. No `hex`, `hsl`, `rgb`.
 - Logical properties only (`margin-inline`, `padding-block`, etc.) to maintain automatic multi-national usability.
 - Required modern features: `@starting-style` for entry fade-in, CSS anchor positioning for hover/popover content. (`@view-transition` is **not** used — it fires only on cross-document navigations, so it is inert in this SPA; add it only if the app ever navigates between documents.)
-- Full ruleset: [`.agents/skills/css/SKILL.md`](./.agents/skills/css/SKILL.md).
+- Full ruleset: [`.agents/skills/css/SKILL.md`](https://github.com/D7460N-ai/D7460N.ai/blob/main/.agents/skills/css/SKILL.md).
 
 ## 5. JavaScript — data transport only
 
 - **Modern vanilla JavaScript owns the API/data logic layer — and nothing else.** In the UI it does nothing but CRUD API calls and data transport. It never owns presentation.
 - **`oninput` is the one and only event permitted in the presentation layer.** No other event, anywhere.
 - **Why (know why you are doing this):** a minimal JavaScript surface reduces attack vectors.
-- **Secrets never live in the browser.** Never expose, embed, or commit them; avoid unnecessary external calls. See [`security`](./.agents/skills/security/SKILL.md).
+- **Secrets never live in the browser.** Never expose, embed, or commit them; avoid unnecessary external calls. See [`security`](https://github.com/D7460N-ai/D7460N.ai/blob/main/.agents/skills/security/SKILL.md).
 - Five files exist in `assets/js/`, period: `app.js`, `oninput.js`, `api.js`, `storage.js`, `tour.js`.
 - `document.querySelector()` only. No `getElementById`, no `getElementsByClassName`.
 - No `addEventListener`. Anywhere. The `oninput` lifecycle uses direct `.oninput` property assignment.
@@ -215,7 +215,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - Initial load enters the **same** `oninput` lifecycle by *selecting* a nav radio: read the persisted selection from storage (or the first nav radio if none — no nav radio is `checked` in the HTML by default), set `input.checked = true`, then dispatch an input event on it (`input.dispatchEvent(new Event('input', { bubbles: true }))`) so the input's **own** `oninput` fires. Setting `.checked` alone does not fire `oninput`, and `.click()`/`onclick` are forbidden — so this `dispatchEvent` is the **single sanctioned** use, only for programmatic selection on load/restore where no real user event exists. Every real user interaction fires `oninput` natively; never dispatch for those. `:checked` remains the single source of truth for both the CSS state machine and the data call.
 - Shell content fetched once per runtime session.
 - Console: `console.clear()` on startup and each lifecycle run. Success = minimal timestamped. Failure = verbose timestamped.
-- Full ruleset: [`.agents/skills/javascript/SKILL.md`](./.agents/skills/javascript/SKILL.md).
+- Full ruleset: [`.agents/skills/javascript/SKILL.md`](https://github.com/D7460N-ai/D7460N.ai/blob/main/.agents/skills/javascript/SKILL.md).
 
 ## 6. JSON — data only
 
@@ -223,7 +223,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - No HTML, no CSS, no JavaScript, no presentation hints, no layout instructions.
 - Canonical page-level keys map positionally: `pageTitle` → `<h1>`, `intro` → `p:nth-of-type(1)`, `body` → `<section>`, `rows` → `<ul>`.
 - Canonical shell keys: `appLogo`, `appUser`, `appLegal`, `appVersion`, `navItems[{label, suffix}]`.
-- Full ruleset: [`.agents/skills/json/SKILL.md`](./.agents/skills/json/SKILL.md). C          nonical shapes: [`.agents/skills/json/references/shape.md`](./.agents/skills/json/references/shape.md).
+- Full ruleset: [`.agents/skills/json/SKILL.md`](https://github.com/D7460N-ai/D7460N.ai/blob/main/.agents/skills/json/SKILL.md). C          nonical shapes: [`.agents/skills/json/references/shape.md`](https://github.com/D7460N-ai/D7460N.ai/blob/main/.agents/skills/json/references/shape.md).
 
 ## 7. Naming
 
@@ -231,7 +231,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - Files without trailing underscores are active. Files with trailing underscores are inactive.
 - No symlinks for cross-file references. Text paths only.
 - Skill names: lowercase letters, numbers, hyphens only. No underscores.
-- Full ruleset: [`.agents/skills/naming/SKILL.md`](./.agents/skills/naming/SKILL.md).
+- Full ruleset: [`.agents/skills/naming/SKILL.md`](https://github.com/D7460N-ai/D7460N.ai/blob/main/.agents/skills/naming/SKILL.md).
 
 ## 8. External Service Failures — Non-Negotiable
 
